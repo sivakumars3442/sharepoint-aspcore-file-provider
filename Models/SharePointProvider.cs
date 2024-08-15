@@ -128,8 +128,8 @@ namespace SharePointASPCoreFileProvider.Models
 							accessMessage = PathPermission.Message;
 							throw new UnauthorizedAccessException("'" + item.Name + "' is not accessible.  You need permission to perform the write action.");
 						}
-						deletedItems.Add(item);
 						await graphServiceClient.Drives[userDriveId].Items[item.Id].DeleteAsync();
+						deletedItems.Add(item);
 					}
 				}
 				removeResponse.Files = deletedItems;
@@ -520,104 +520,46 @@ namespace SharePointASPCoreFileProvider.Models
 					fileName = fileName.Replace("../", "");
 
 					string[] folders = file.FileName.Split('/');
-					if (folders.Length > 1)
+					if (uploadFiles != null)
 					{
-						string currentPath = path;
-						string finalFolderName = folders[folders.Length - 2];
-						string parentPath = driveItemId;
-
-						for (int i = 0; i < folders.Length - 1; i++)
+						if (action == "save")
 						{
-							string folderName = i == folders.Length - 2 ? finalFolderName : folders[i];
-							currentPath = Path.Combine(currentPath, folderName);
-
-							if(await ItemExistsInDrive(driveItemId, currentPath))
+							var uploadResult = await UploadFileToDriveAsync(driveItemId, file, action, null);
+							if (!uploadResult.Success)
 							{
-								if (action == "keepboth")
-								{
-									currentPath = GenerateUniqueFileName(driveItemId, currentPath);
-								}
-								else if (action == "remove")
-								{
-									var removeResult = await RemoveItemFromDriveAsync(driveItemId, fileName);
-									if (!removeResult.Success)
-									{
-										ErrorDetails er = new ErrorDetails
-										{
-											Code = "404",
-											Message = "File not found."
-										};
-										uploadResponse.Error = er;
-									}
-								}
-							}
-							var createData = new FileManagerDirectoryContent
-							{
-								Id = parentPath,
-								Name = folderName,
-								FilterPath = currentPath
-							};
-
-							await createAsync(currentPath, folderName, createData);
-
-							var createdFolder = await GetDriveItemByName(driveItemId, currentPath);
-							if (createdFolder != null)
-							{
-								parentPath = createdFolder.Id;
+								existFiles.Add(fileName);
 							}
 						}
-
-						string fullPath = Path.Combine(currentPath, folders.Last());
-						var uploadResult = await UploadFileToDriveAsync(driveItemId, file, action, fullPath);
-
-						if (!uploadResult.Success)
+						else if (action == "replace")
 						{
-							existFiles.Add(fileName);
+							var uploadResult = await UploadFileToDriveAsync(driveItemId, file, action, null);
+							if (!uploadResult.Success)
+							{
+								existFiles.Add(fileName);
+							}
 						}
-					}
-					else
-					{
-						if (uploadFiles != null)
+						else if (action == "keepboth")
 						{
-							if (action == "save")
-							{
-								var uploadResult = await UploadFileToDriveAsync(driveItemId, file, action, null);
-								if (!uploadResult.Success)
-								{
-									existFiles.Add(fileName);
-								}
-							}
-							else if (action == "replace")
-							{
-								var uploadResult = await UploadFileToDriveAsync(driveItemId, file, action, null);
-								if (!uploadResult.Success)
-								{
-									existFiles.Add(fileName);
-								}
-							}
-							else if (action == "keepboth")
-							{
-								string newFileName = GenerateUniqueFileName(driveItemId, file.FileName);
-								fileName = Path.Combine(Path.GetTempPath(), newFileName);
+							string newFileName = await GenerateUniqueFileName(driveItemId, file.FileName);
+							fileName = Path.Combine(Path.GetTempPath(), newFileName);
 
-								var uploadResult = await UploadFileToDriveAsync(driveItemId, file, action, newFileName);
-								if (!uploadResult.Success)
-								{
-									existFiles.Add(newFileName);
-								}
-							}
-							else if (action == "remove")
+							var uploadResult = await UploadFileToDriveAsync(driveItemId, file, action, newFileName);
+							if (!uploadResult.Success)
 							{
-								var removeResult = await RemoveItemFromDriveAsync(driveItemId, fileName);
-								if (!removeResult.Success)
+								existFiles.Add(newFileName);
+							}
+						}
+						else if (action == "remove")
+						{
+							var removeResult = await RemoveItemFromDriveAsync(driveItemId, fileName);
+							if (!removeResult.Success)
+							{
+								ErrorDetails er = new ErrorDetails
 								{
-									ErrorDetails er = new ErrorDetails
-									{
-										Code = "404",
-										Message = "File not found."
-									};
-									uploadResponse.Error = er;
-								}
+									Code = "404",
+									Message = "File not found."
+								};
+								uploadResponse.Error = er;
 							}
 						}
 					}
@@ -707,22 +649,41 @@ namespace SharePointASPCoreFileProvider.Models
 			}
 		}
 
-		private string GenerateUniqueFileName(string driveItemId, string name)
+		private async Task<string> GenerateUniqueFileName(string driveItemId, string name)
 		{
 			try
 			{
-				string newName = name;
+				string[] folderNames = name.Split('/');
+				string baseName = folderNames.Last();
+				string folderPath = string.Join("/", folderNames.Take(folderNames.Length - 1));
+				string extension = Path.GetExtension(baseName);
+				string nameWithoutExtension = Path.GetFileNameWithoutExtension(baseName);
+
 				int count = 0;
-				string extension = Path.GetExtension(name);
-				string nameWithoutExtension = Path.GetFileNameWithoutExtension(name);
+				string newName = baseName;
 
-				while (ItemExistsInDrive(driveItemId, newName).Result)
+				if (folderNames.Length > 1)
 				{
-					count++;
-					newName = $"{nameWithoutExtension}({count}){extension}";
+					string currentPath = folderPath;
+					string folderName = folderNames.First();
+					string originalFolderName = folderName;
+					while (await ItemExistsInDrive(driveItemId, currentPath))
+					{
+						count++;
+						folderName = $"{originalFolderName}({count})";
+						currentPath = string.Join("/", folderName, string.Join("/", folderNames.Skip(1)));
+					}
+					return string.Join("/", folderName, string.Join("/", folderNames.Skip(1)));
 				}
-
-				return newName;
+				else
+				{
+					while (await ItemExistsInDrive(driveItemId, newName))
+					{
+						count++;
+						newName = $"{nameWithoutExtension}({count}){extension}";
+					}
+					return newName;
+				}
 			}
 			catch (Exception ex)
 			{

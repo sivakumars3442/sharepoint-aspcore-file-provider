@@ -53,6 +53,7 @@ To set up the SharePoint service provider, follow these steps:
   "userDriveId": "<--User Drive ID-->",
   "AllowedHosts": "*"
 }
+```
 
 Replace "<--User Site Name-->", "<--User Drive ID-->", "tenantId", "clientId", and "clientSecret" with your actual values.
 

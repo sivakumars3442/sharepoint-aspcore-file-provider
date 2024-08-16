@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Syncfusion.Web.FileManager.Base
+﻿namespace Syncfusion.Web.FileManager.Base
 {
     public class AccessPermission
     {

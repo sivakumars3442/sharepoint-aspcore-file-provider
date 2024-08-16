@@ -20,9 +20,10 @@ namespace SharePointASPCoreFileProvider.Controllers
         public SharePointController(IConfiguration configuration)
         {
 			this.operation = new SharePointProvider();
-			this.operation.userSiteName = configuration["userSiteName"];
-			this.operation.userDriveId = configuration["userDriveId"];
-			this.operation.RegisterSharePoint(configuration["tenantId"], configuration["clientId"], configuration["clientSecret"]);
+			var sharePointSettings = configuration.GetSection("SharePointSettings");
+			this.operation.userSiteName = sharePointSettings["UserSiteName"];
+			this.operation.userDriveId = sharePointSettings["UserDriveId"];
+			this.operation.RegisterSharePoint(sharePointSettings["TenantId"], sharePointSettings["ClientId"], sharePointSettings["ClientSecret"]);
 		}
 
         [Route("SharePointFileOperations")]

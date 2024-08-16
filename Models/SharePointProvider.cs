@@ -12,8 +12,7 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
-using Newtonsoft.Json.Serialization;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace SharePointASPCoreFileProvider.Models
 {
@@ -50,7 +49,7 @@ namespace SharePointASPCoreFileProvider.Models
 
 		public async Task<FileManagerResponse> GetFilesAsync(string path, bool showHiddenItems, params FileManagerDirectoryContent[] data)
 		{
-			if (string.IsNullOrEmpty(userDriveId)) 
+			if (string.IsNullOrEmpty(userDriveId))
 			{
 				await GetSharePointDrive();
 			}
@@ -118,9 +117,9 @@ namespace SharePointASPCoreFileProvider.Models
 			try
 			{
 				List<FileManagerDirectoryContent> deletedItems = new List<FileManagerDirectoryContent>();
-				if(graphServiceClient != null)
+				if (graphServiceClient != null)
 				{
-					foreach(FileManagerDirectoryContent item in data)
+					foreach (FileManagerDirectoryContent item in data)
 					{
 						AccessPermission PathPermission = GetPathPermission(item.FilterPath + item.Name, item.IsFile);
 						if (PathPermission != null && (!PathPermission.Read || !PathPermission.Write))
@@ -207,7 +206,7 @@ namespace SharePointASPCoreFileProvider.Models
 						await this.graphServiceClient.Drives[userDriveId].Items[item.Id].PatchAsync(moveRequestBody);
 					}
 				}
-				foreach(FileManagerDirectoryContent item in data)
+				foreach (FileManagerDirectoryContent item in data)
 				{
 					DriveItem transferredDrive = null;
 					while (transferredDrive == null)
@@ -269,14 +268,14 @@ namespace SharePointASPCoreFileProvider.Models
 			Syncfusion.Web.FileManager.Base.FileDetails detailFiles = new Syncfusion.Web.FileManager.Base.FileDetails();
 			try
 			{
-				if(data.Length == 0 || data.Length == 1)
+				if (data.Length == 0 || data.Length == 1)
 				{
 					var root = data.FirstOrDefault();
 					detailFiles.Name = root.Name;
 					detailFiles.IsFile = root.IsFile;
 					detailFiles.Size = byteConversion(root.Size);
 					detailFiles.Created = root.DateCreated;
-					detailFiles.Location = (root.ParentId == null || root.ParentId == "/") ? "root" : "root"+root.FilterPath.TrimEnd('/') ;
+					detailFiles.Location = (root.ParentId == null || root.ParentId == "/") ? "root" : "root" + root.FilterPath.TrimEnd('/');
 					detailFiles.Modified = root.DateModified;
 					detailFiles.Permission = root.Permission;
 					detailFiles.MultipleFiles = false;
@@ -480,7 +479,7 @@ namespace SharePointASPCoreFileProvider.Models
 				renameResponse.Files = new List<FileManagerDirectoryContent> { file };
 				return renameResponse;
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				ErrorDetails er = new ErrorDetails();
 				er.Message = (ex.GetType().Name == "UnauthorizedAccessException") ? "'" + name + "' is not accessible. You need permission to perform the write action." : ex.Message.ToString();
@@ -1050,13 +1049,12 @@ namespace SharePointASPCoreFileProvider.Models
 
 		public string ToCamelCase(FileManagerResponse userData)
 		{
-            return JsonConvert.SerializeObject(userData, new JsonSerializerSettings
-            {
-                ContractResolver = new DefaultContractResolver
-                {
-                    NamingStrategy = new CamelCaseNamingStrategy()
-                }
-            });
-        }
+			JsonSerializerOptions options = new JsonSerializerOptions
+			{
+				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+			};
+
+			return JsonSerializer.Serialize(userData, options);
+		}
 	}
 }

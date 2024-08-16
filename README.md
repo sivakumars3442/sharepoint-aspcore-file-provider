@@ -46,11 +46,13 @@ To set up the SharePoint service provider, follow these steps:
       "Default": "Warning"
     }
   },
-  "tenantId": "<--Tenant Id-->",
-  "clientId": "<--Client Id-->",
-  "clientSecret": "<--Client Secret-->",
-  "userSiteName": "<--User Site Name-->",
-  "userDriveId": "<--User Drive ID-->",
+  "SharePointSettings": {
+    "TenantId": "<--Tenant Id-->",
+    "ClientId": "<--Client Id-->",
+    "ClientSecret": "<--Client Secret-->",
+    "UserSiteName": "<--User Site Name-->",
+    "UserDriveId": "<--User Drive ID-->"
+  },
   "AllowedHosts": "*"
 }
 ```

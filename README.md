@@ -73,9 +73,12 @@ Once cloned, open solution file in visual studio.Then build the project after re
 
 ## File Manager AjaxSettings
 
-To access the basic actions such as Read, Delete, Copy, Move, Rename, Search, and Get Details of File Manager using the SharePoint service, map the following code snippet in the AjaxSettings property of File Manager.
+To access the basic actions such as Read, Delete, Copy, Move, Rename, Search, and Get Details of File Manager using the SharePoint service, map the following code snippet in the `AjaxSettings` property of File Manager. Please refer to the platform-specific documentation for more details:
 
 Here, the `hostUrl` will be your locally hosted port number.
+
+### JavaScript
+For JavaScript applications, refer to the [JavaScript File Manager UG Documentation](https://ej2.syncfusion.com/javascript/documentation/file-manager/es5-getting-started#using-cdn-link-for-script-and-style-reference).
 
 ```
   var hostUrl = http://localhost:62870/;
@@ -83,11 +86,17 @@ Here, the `hostUrl` will be your locally hosted port number.
         url: hostUrl + 'api/SharePointProvider/SharePointFileOperations'
   }
 ```
+### ASP.NET Core
+For ASP.NET Core applications, refer to the [ASP.NET Core File Manager UG Documentation](https://ej2.syncfusion.com/aspnetcore/documentation/file-manager/getting-started#add-aspnet-core-filemanager-control).
+### Blazor
+For Blazor applications, refer to the [Blazor File Manager UG Documentation](https://blazor.syncfusion.com/documentation/file-manager/getting-started-with-server-app#add-blazor-filemanager-component).
 
 ## File download AjaxSettings
 
 To perform download operation, initialize the `downloadUrl` property in ajaxSettings of the File Manager component.
 
+### JavaScript
+For JavaScript applications, refer to the [JavaScript File Manager UG Documentation](https://ej2.syncfusion.com/javascript/documentation/file-manager/es5-getting-started#file-download-support).
 ```
   var hostUrl = http://localhost:62870/;
   ajaxSettings: {
@@ -95,11 +104,17 @@ To perform download operation, initialize the `downloadUrl` property in ajaxSett
     downloadUrl: hostUrl + 'api/SharePointProvider/SharePointDownload'
   }
 ```
+### ASP.NET Core
+For ASP.NET Core applications, refer to the [ASP.NET Core File Manager UG Documentation](https://ej2.syncfusion.com/aspnetcore/documentation/file-manager/getting-started#file-download-support).
+### Blazor
+For Blazor applications, refer to the [Blazor File Manager UG Documentation](https://blazor.syncfusion.com/documentation/file-manager/getting-started-with-server-app#file-download-support).
 
 ## File upload AjaxSettings
 
 To perform upload operation, initialize the `uploadUrl` property in ajaxSettings of the File Manager component.
 
+### JavaScript
+For JavaScript applications, refer to the [JavaScript File Manager UG Documentation](https://ej2.syncfusion.com/javascript/documentation/file-manager/es5-getting-started#file-upload-support).
 ```
   var hostUrl = http://localhost:62870/;
   ajaxSettings: {
@@ -107,11 +122,17 @@ To perform upload operation, initialize the `uploadUrl` property in ajaxSettings
     uploadUrl: hostUrl + 'api/SharePointProvider/SharePointUpload'
   }
 ```
+### ASP.NET Core
+For ASP.NET Core applications, refer to the [ASP.NET Core File Manager UG Documentation](https://ej2.syncfusion.com/aspnetcore/documentation/file-manager/getting-started#file-upload-support).
+### Blazor
+For Blazor applications, refer to the [Blazor File Manager UG Documentation](https://blazor.syncfusion.com/documentation/file-manager/getting-started-with-server-app#file-upload-support).
 
 ## File image preview AjaxSettings
 
 To perform image preview support in the File Manager component, initialize the `getImageUrl` property in ajaxSettings of the File Manager component.
 
+### JavaScript
+For JavaScript applications, refer to the [JavaScript File Manager UG Documentation](https://ej2.syncfusion.com/javascript/documentation/file-manager/es5-getting-started#image-preview-support).
 ```
   var hostUrl = http://localhost:62870/;
   ajaxSettings: {
@@ -119,6 +140,10 @@ To perform image preview support in the File Manager component, initialize the `
     getImageUrl: hostUrl + 'api/SharePointProvider/SharePointGetImage'
   }
 ```
+### ASP.NET Core
+For ASP.NET Core applications, refer to the [ASP.NET Core File Manager UG Documentation](https://ej2.syncfusion.com/aspnetcore/documentation/file-manager/getting-started#image-preview-support).
+### Blazor
+For Blazor applications, refer to the [Blazor File Manager UG Documentation](https://blazor.syncfusion.com/documentation/file-manager/getting-started-with-server-app#image-preview-support).
 
 ## Support
 

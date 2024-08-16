@@ -77,26 +77,28 @@ To access the basic actions such as Read, Delete, Copy, Move, Rename, Search, an
 
 Here, the `hostUrl` will be your locally hosted port number.
 
-### JavaScript
-For JavaScript applications, refer to the [JavaScript File Manager UG Documentation](https://ej2.syncfusion.com/javascript/documentation/file-manager/es5-getting-started#using-cdn-link-for-script-and-style-reference).
-
 ```
   var hostUrl = http://localhost:62870/;
   ajaxSettings: {
         url: hostUrl + 'api/SharePointProvider/SharePointFileOperations'
   }
 ```
-### ASP.NET Core
-For ASP.NET Core applications, refer to the [ASP.NET Core File Manager UG Documentation](https://ej2.syncfusion.com/aspnetcore/documentation/file-manager/getting-started#add-aspnet-core-filemanager-control).
-### Blazor
-For Blazor applications, refer to the [Blazor File Manager UG Documentation](https://blazor.syncfusion.com/documentation/file-manager/getting-started-with-server-app#add-blazor-filemanager-component).
+
+Refer to the below File Manager UG Documentation:
+
+- JavaScript – https://ej2.syncfusion.com/javascript/documentation/file-manager/es5-getting-started#using-cdn-link-for-script-and-style-reference
+- TypeScrip – https://ej2.syncfusion.com/documentation/file-manager/getting-started#initialize-the-file-manager
+- React – https://ej2.syncfusion.com/react/documentation/file-manager/getting-started#run-the-application
+- Vue – https://ej2.syncfusion.com/vue/documentation/file-manager/getting-started#add-syncfusion-vue-component
+- Angular – https://ej2.syncfusion.com/angular/documentation/file-manager/getting-started#adding-syncfusion-component
+- Blazor – https://blazor.syncfusion.com/documentation/file-manager/getting-started-with-server-app#add-blazor-filemanager-component
+- ASP.NET Core – https://ej2.syncfusion.com/aspnetcore/documentation/file-manager/getting-started#add-aspnet-core-filemanager-control
+- ASP.NET MVC – https://ej2.syncfusion.com/aspnetmvc/documentation/file-manager/getting-started#add-aspnet-mvc-filemanager-control
 
 ## File download AjaxSettings
 
 To perform download operation, initialize the `downloadUrl` property in ajaxSettings of the File Manager component.
 
-### JavaScript
-For JavaScript applications, refer to the [JavaScript File Manager UG Documentation](https://ej2.syncfusion.com/javascript/documentation/file-manager/es5-getting-started#file-download-support).
 ```
   var hostUrl = http://localhost:62870/;
   ajaxSettings: {
@@ -104,17 +106,20 @@ For JavaScript applications, refer to the [JavaScript File Manager UG Documentat
     downloadUrl: hostUrl + 'api/SharePointProvider/SharePointDownload'
   }
 ```
-### ASP.NET Core
-For ASP.NET Core applications, refer to the [ASP.NET Core File Manager UG Documentation](https://ej2.syncfusion.com/aspnetcore/documentation/file-manager/getting-started#file-download-support).
-### Blazor
-For Blazor applications, refer to the [Blazor File Manager UG Documentation](https://blazor.syncfusion.com/documentation/file-manager/getting-started-with-server-app#file-download-support).
+
+- JavaScript – https://ej2.syncfusion.com/javascript/documentation/file-manager/es5-getting-started#file-download-support
+- TypeScrip – https://ej2.syncfusion.com/documentation/file-manager/getting-started#file-download-support
+- React – https://ej2.syncfusion.com/react/documentation/file-manager/getting-started#file-download-support
+- Vue – https://ej2.syncfusion.com/vue/documentation/file-manager/getting-started#file-download-support
+- Angular – https://ej2.syncfusion.com/angular/documentation/file-manager/getting-started#file-download-support
+- Blazor – https://blazor.syncfusion.com/documentation/file-manager/getting-started-with-server-app#file-download-support
+- ASP.NET Core – https://ej2.syncfusion.com/aspnetcore/documentation/file-manager/getting-started#file-download-support
+- ASP.NET MVC – https://ej2.syncfusion.com/aspnetmvc/documentation/file-manager/getting-started#file-download-support
 
 ## File upload AjaxSettings
 
 To perform upload operation, initialize the `uploadUrl` property in ajaxSettings of the File Manager component.
 
-### JavaScript
-For JavaScript applications, refer to the [JavaScript File Manager UG Documentation](https://ej2.syncfusion.com/javascript/documentation/file-manager/es5-getting-started#file-upload-support).
 ```
   var hostUrl = http://localhost:62870/;
   ajaxSettings: {
@@ -122,17 +127,20 @@ For JavaScript applications, refer to the [JavaScript File Manager UG Documentat
     uploadUrl: hostUrl + 'api/SharePointProvider/SharePointUpload'
   }
 ```
-### ASP.NET Core
-For ASP.NET Core applications, refer to the [ASP.NET Core File Manager UG Documentation](https://ej2.syncfusion.com/aspnetcore/documentation/file-manager/getting-started#file-upload-support).
-### Blazor
-For Blazor applications, refer to the [Blazor File Manager UG Documentation](https://blazor.syncfusion.com/documentation/file-manager/getting-started-with-server-app#file-upload-support).
+
+- JavaScript – https://ej2.syncfusion.com/javascript/documentation/file-manager/es5-getting-started#file-upload-support
+- TypeScrip – https://ej2.syncfusion.com/documentation/file-manager/getting-started#file-upload-support
+- React – https://ej2.syncfusion.com/react/documentation/file-manager/getting-started#file-upload-support
+- Vue – https://ej2.syncfusion.com/vue/documentation/file-manager/getting-started#file-upload-support
+- Angular – https://ej2.syncfusion.com/angular/documentation/file-manager/getting-started#file-upload-support
+- Blazor – https://blazor.syncfusion.com/documentation/file-manager/getting-started-with-server-app#file-upload-support
+- ASP.NET Core – https://ej2.syncfusion.com/aspnetcore/documentation/file-manager/getting-started#file-upload-support
+- ASP.NET MVC – https://ej2.syncfusion.com/aspnetmvc/documentation/file-manager/getting-started#file-upload-support
 
 ## File image preview AjaxSettings
 
 To perform image preview support in the File Manager component, initialize the `getImageUrl` property in ajaxSettings of the File Manager component.
 
-### JavaScript
-For JavaScript applications, refer to the [JavaScript File Manager UG Documentation](https://ej2.syncfusion.com/javascript/documentation/file-manager/es5-getting-started#image-preview-support).
 ```
   var hostUrl = http://localhost:62870/;
   ajaxSettings: {
@@ -140,10 +148,15 @@ For JavaScript applications, refer to the [JavaScript File Manager UG Documentat
     getImageUrl: hostUrl + 'api/SharePointProvider/SharePointGetImage'
   }
 ```
-### ASP.NET Core
-For ASP.NET Core applications, refer to the [ASP.NET Core File Manager UG Documentation](https://ej2.syncfusion.com/aspnetcore/documentation/file-manager/getting-started#image-preview-support).
-### Blazor
-For Blazor applications, refer to the [Blazor File Manager UG Documentation](https://blazor.syncfusion.com/documentation/file-manager/getting-started-with-server-app#image-preview-support).
+
+- JavaScript – https://ej2.syncfusion.com/javascript/documentation/file-manager/es5-getting-started#image-preview-support
+- TypeScrip – https://ej2.syncfusion.com/documentation/file-manager/getting-started#image-preview-support
+- React – https://ej2.syncfusion.com/react/documentation/file-manager/getting-started#image-preview-support
+- Vue – https://ej2.syncfusion.com/vue/documentation/file-manager/getting-started#image-preview-support
+- Angular – https://ej2.syncfusion.com/angular/documentation/file-manager/getting-started#image-preview-support
+- Blazor – https://blazor.syncfusion.com/documentation/file-manager/getting-started-with-server-app#image-preview-support
+- ASP.NET Core – https://ej2.syncfusion.com/aspnetcore/documentation/file-manager/getting-started#image-preview-support
+- ASP.NET MVC – https://ej2.syncfusion.com/aspnetmvc/documentation/file-manager/getting-started#image-preview-support
 
 ## Support
 
@@ -151,7 +164,7 @@ Product support is available for through following mediums.
 
 * Creating incident in Syncfusion [Direct-trac](https://www.syncfusion.com/support/directtrac/incidents?utm_source=npm&utm_campaign=filemanager) support system or [Community forum](https://www.syncfusion.com/forums/essential-js2?utm_source=npm&utm_campaign=filemanager).
 * New [GitHub issue](https://github.com/syncfusion/ej2-javascript-ui-controls/issues/new).
-* Ask your query in [Stack Overflow](https://stackoverflow.com/?utm_source=npm&utm_campaign=filemanager) with tag `syncfusion` and `ej2`.
+* Ask your query in [Stack Overflow](https://stackoverflow.com/?utm_source=npm&utm_campaign=filemanager) with tag `syncfusion`, `syncfusion-blazor` and `ej2`.
 
 ## License
 
